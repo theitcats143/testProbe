@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  juniq-it-network:
+    driver: bridge
+
+services:
+  backend:
+      build: ./monitoringAppServer
+      ports:
+          - "127.0.0.1:8080:8080"
+      networks:
+          - juniq-it-network
+
+  frontend:
+      build: ./monitoringAppClient
+      ports:
+          - "127.0.0.1:4200:80"
+      networks:
+          - juniq-it-network
+      depends_on:
+        - "backend"
